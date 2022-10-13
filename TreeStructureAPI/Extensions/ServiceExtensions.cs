@@ -1,5 +1,7 @@
-﻿using Entities;
+﻿using Contracts;
+using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repositories;
 
 namespace TreeStructureAPI.Extensions
 {
@@ -25,6 +27,11 @@ namespace TreeStructureAPI.Extensions
                     builder.MigrationsAssembly("TreeStructureAPI");
                 });
             });
+        }
+
+        public static void ConfigureRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<INodeRepository, NodeRepository>();
         }
     }
 }

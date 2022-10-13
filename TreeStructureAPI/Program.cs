@@ -7,6 +7,7 @@ var configuration = builder.Configuration;
 
 builder.Services.ConfigureCORS();
 builder.Services.ConfigureSQLContext(configuration);
+builder.Services.ConfigureRepositories();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -20,7 +21,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+    
 app.MigrateDatabase();
 
 app.Run();

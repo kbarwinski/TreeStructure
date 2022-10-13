@@ -20,7 +20,8 @@ namespace Entities
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
         }
 
-        public DbSet<Node> Nodes { get; set; }
+        public DbSet<Node> nodes { get; set; }
+
 
     }
 }

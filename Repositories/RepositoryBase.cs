@@ -39,5 +39,15 @@ namespace Repositories
             return !trackChanges ? repositoryContext.Set<T>().Where(expression).AsNoTracking() : repositoryContext.Set<T>().Where(expression);
         }
 
+        public IQueryable<T> RunFromQuery(string sql, bool trackChanges)
+        {
+            return !trackChanges ? repositoryContext.Set<T>().FromSqlRaw(sql).AsNoTracking() : repositoryContext.Set<T>().FromSqlRaw(sql);
+        }
+
+        public async Task<int> Save()
+        {
+            return await repositoryContext.SaveChangesAsync();
+        }
+
     }
 }
