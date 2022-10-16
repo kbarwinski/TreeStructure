@@ -1,0 +1,22 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --primary: #353535;
+  --secondary: #ffffff;
+  --ternary: #000000;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--primary);
+  --color-text:var(--secondary);
+  --color-border: var(--ternary);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  border-color: var(--color-border);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+}
