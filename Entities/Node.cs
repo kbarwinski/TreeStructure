@@ -26,7 +26,5 @@ namespace Entities
         public Node? ParentNode { get; set; }
         public ICollection<Node> ChildrenNodes { get; set; }
 
-        [Column("depth")]
-        public int Depth { get; set; } = 0;
     }
 }

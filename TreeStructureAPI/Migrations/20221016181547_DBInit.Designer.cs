@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TreeStructureAPI.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20221013180148_dbinit")]
-    partial class dbinit
+    [Migration("20221016181547_DBInit")]
+    partial class DBInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,10 +32,6 @@ namespace TreeStructureAPI.Migrations
                         .HasColumnName("nodeid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Depth")
-                        .HasColumnType("integer")
-                        .HasColumnName("depth");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -57,55 +53,47 @@ namespace TreeStructureAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Depth = 0,
                             Name = "Root"
                         },
                         new
                         {
                             Id = 2,
-                            Depth = 1,
                             Name = "A1",
                             ParentId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Depth = 1,
                             Name = "A2",
                             ParentId = 1
                         },
                         new
                         {
                             Id = 4,
-                            Depth = 2,
                             Name = "B1",
                             ParentId = 2
                         },
                         new
                         {
                             Id = 5,
-                            Depth = 2,
                             Name = "B2",
                             ParentId = 2
                         },
                         new
                         {
                             Id = 6,
-                            Depth = 3,
                             Name = "C1",
                             ParentId = 4
                         },
                         new
                         {
                             Id = 7,
-                            Depth = 3,
                             Name = "C2",
                             ParentId = 4
                         },
                         new
                         {
                             Id = 8,
-                            Depth = 3,
                             Name = "C3",
                             ParentId = 4
                         });

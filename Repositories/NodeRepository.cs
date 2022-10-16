@@ -15,22 +15,29 @@ namespace Repositories
         {
         }
 
-        public async Task<List<Node>> GetAllNodes(bool ascSort, bool trackChanges)
+        public async Task<List<Node>> GetAllNodes(bool trackChanges)
         {
             var root = await FindAll(false).Where(x => x.ParentId == null).FirstOrDefaultAsync();
             var query = $"SELECT * FROM getnodes({root.Id},{int.MaxValue})";
 
 
-            return ascSort ? await RunFromQuery(query, trackChanges).Skip(1).ToListAsync() : 
-                await RunFromQuery(query, trackChanges).Skip(1).ToListAsync();
+            return await RunFromQuery(query, trackChanges).Skip(1).ToListAsync();
         }
 
-        public async Task<List<Node>> GetNodeChildrenById(int nodeId, bool ascSort, bool trackChanges)
+        public async Task<List<Node>> GetNestedNodes(int nodeId, bool trackChanges)
+        {
+            var node = await FindAll(false).Where(x => x.Id == nodeId).FirstOrDefaultAsync();
+            var query = $"SELECT * FROM getnodes({node.Id},{int.MaxValue})";
+
+
+            return await RunFromQuery(query, trackChanges).Skip(1).ToListAsync();
+        }
+
+        public async Task<List<Node>> GetNodeChildrenById(int nodeId,bool trackChanges)
         {
             var query = $"SELECT * FROM getnodes({nodeId},{1})";
 
-            return ascSort ? await RunFromQuery(query, trackChanges).Skip(1).OrderBy(x => x.Name).ToListAsync() :
-                await RunFromQuery(query, trackChanges).Skip(1).OrderByDescending(x => x.Name).ToListAsync();
+            return await RunFromQuery(query, trackChanges).Skip(1).ToListAsync();
         }
 
         public async Task<Node> GetNodeById(int nodeId, bool trackChanges)

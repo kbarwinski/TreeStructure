@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TreeStructureAPI.Migrations
 {
-    public partial class dbinit : Migration
+    public partial class DBInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,7 @@ namespace TreeStructureAPI.Migrations
                     nodeid = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    parentid = table.Column<int>(type: "integer", nullable: true),
-                    depth = table.Column<int>(type: "integer", nullable: false)
+                    parentid = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,35 +32,35 @@ namespace TreeStructureAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "nodes",
-                columns: new[] { "nodeid", "depth", "name", "parentid" },
-                values: new object[] { 1, 0, "Root", null });
+                columns: new[] { "nodeid", "name", "parentid" },
+                values: new object[] { 1, "Root", null });
 
             migrationBuilder.InsertData(
                 table: "nodes",
-                columns: new[] { "nodeid", "depth", "name", "parentid" },
+                columns: new[] { "nodeid", "name", "parentid" },
                 values: new object[,]
                 {
-                    { 2, 1, "A1", 1 },
-                    { 3, 1, "A2", 1 }
+                    { 2, "A1", 1 },
+                    { 3, "A2", 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "nodes",
-                columns: new[] { "nodeid", "depth", "name", "parentid" },
+                columns: new[] { "nodeid", "name", "parentid" },
                 values: new object[,]
                 {
-                    { 4, 2, "B1", 2 },
-                    { 5, 2, "B2", 2 }
+                    { 4, "B1", 2 },
+                    { 5, "B2", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "nodes",
-                columns: new[] { "nodeid", "depth", "name", "parentid" },
+                columns: new[] { "nodeid", "name", "parentid" },
                 values: new object[,]
                 {
-                    { 6, 3, "C1", 4 },
-                    { 7, 3, "C2", 4 },
-                    { 8, 3, "C3", 4 }
+                    { 6, "C1", 4 },
+                    { 7, "C2", 4 },
+                    { 8, "C3", 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -70,7 +69,7 @@ namespace TreeStructureAPI.Migrations
                 column: "parentid");
 
             var recursiveFunction =
-            @"CREATE FUNCTION getnodes(targetid integer, max integer)
+                @"CREATE FUNCTION getnodes(targetid integer, max integer)
                 RETURNS TABLE(nodeid integer, name character varying(30), parentid integer, depth integer)
                 LANGUAGE SQL
                 AS $$

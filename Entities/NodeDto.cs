@@ -10,6 +10,6 @@ namespace Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<NodeDto> ChildrenNodes { get; set; }
+        public int? ParentId { get; set; }
     }
 }
